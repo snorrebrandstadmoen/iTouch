@@ -1,6 +1,7 @@
-h1. INSTALLASJON
-
-h2. Js Test Driver, Jasmine-Adapter, Jasmine, Sinon
+INSTALLASJON
+============
+Js Test Driver, Jasmine-Adapter, Jasmine, Sinon
+-----------------------------------------------
 Alle TDD-relaterte JavaScript-bibliotek som er nødvendige ligger i lib-mappen.
 
 *For reference:*
