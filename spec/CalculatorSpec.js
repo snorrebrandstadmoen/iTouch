@@ -1,17 +1,19 @@
-(function () {
-describe("Calculator", function() {
-  var calculator;
+(function() {
+    describe("Calculator",
+    function() {
+        var calculator;
 
-  beforeEach(function() {
-    calculator = new Calculator();
-  });
+        beforeEach(function() {
+            calculator = new Calculator();
+        });
 
-  it("should add numbers", function() {
-    var sum = calculator.add(1, 2);
-	console.log(sum);
-    expect(sum).toEqual(3);
-  });
+        it("should add numbers",
+        function() {
+            var sum = calculator.add(1, 2);
+            console.log(sum);
+            expect(sum).toEqual(3);
+        });
 
-});
+    });
 })();
 
