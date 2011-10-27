@@ -5,10 +5,10 @@ Js Test Driver, Jasmine-Adapter, Jasmine, Sinon
 Alle TDD-relaterte JavaScript-bibliotek som er nødvendige ligger i lib-mappen.
 
 *For reference:*
-- http://code.google.com/p/js-test-driver/
-- https://github.com/ibolmo/jasmine-jstd-adapter
-- http://pivotal.github.com/jasmine
-- http://sinonjs.org/
+ - http://code.google.com/p/js-test-driver/
+ - https://github.com/ibolmo/jasmine-jstd-adapter
+ - http://pivotal.github.com/jasmine
+ - http://sinonjs.org/
 
 JstdUtil
 -------------
@@ -22,7 +22,7 @@ sudo gem update --system
 sudo gem install gemcutter
 sudo gem install jstdutil
 </pre>
-export JSTESTDRIVER_HOME=(mappe JsTestDriver-jar'en ligger i, ligger i ./lib/js-test-driver)
+'export JSTESTDRIVER_HOME='(mappe JsTestDriver-jar'en ligger i, ligger i ./lib/js-test-driver)
 
 Node.js
 -------------
@@ -41,7 +41,7 @@ npm install now -g
 Jasmine-node
 -------------
 TODO
-- https://github.com/mhevery/jasmine-node
+ - https://github.com/mhevery/jasmine-node
 
 DOKUMENTASJON
 =============
@@ -49,14 +49,14 @@ DOKUMENTASJON
 JS Test Driver
 --------------
 Hvordan funker det:
-- http://code.google.com/p/js-test-driver/wiki/DesignPrinciples
+ - http://code.google.com/p/js-test-driver/wiki/DesignPrinciples
 Bruk:
-- http://code.google.com/p/js-test-driver/wiki/GettingStarted#Writing_configuration_file
+ - http://code.google.com/p/js-test-driver/wiki/GettingStarted#Writing_configuration_file
 
 Jasmine
 -------------
 Bruk:
-- https://github.com/pivotal/jasmine/wiki
+ - https://github.com/pivotal/jasmine/wiki
 	
 Sinon
 -------------
