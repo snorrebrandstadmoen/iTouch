@@ -1,3 +1,4 @@
+(function () {
 describe("Calculator", function() {
   var calculator;
 
@@ -12,3 +13,7 @@ describe("Calculator", function() {
   });
 
 });
+})();
+
+
+
