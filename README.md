@@ -22,8 +22,9 @@ Sjekk siden: http://cjohansen.no/en/javascript/jstdutil_a_ruby_wrapper_over_jste
 sudo gem update --system
 sudo gem install gemcutter
 sudo gem install jstdutil
+
+export JSTESTDRIVER_HOME=(mappe JsTestDriver-jar'en ligger i, ligger i ./lib/js-test-driver)
 </pre>
-`export JSTESTDRIVER_HOME=`(mappe JsTestDriver-jar'en ligger i, ligger i ./lib/js-test-driver)
 
 Node.js
 -------------
@@ -50,21 +51,22 @@ DOKUMENTASJON
 JS Test Driver
 --------------
 Hvordan funker det:
-
+  
 * http://code.google.com/p/js-test-driver/wiki/DesignPrinciples
-Bruk:
 
+Bruk:
+  
 * http://code.google.com/p/js-test-driver/wiki/GettingStarted#Writing_configuration_file
 
 Jasmine
 -------------
 Bruk:
-
+  
 * https://github.com/pivotal/jasmine/wiki
 	
 Sinon
 -------------
 Bruk:
-
+  
 * http://sinonjs.org/docs/
 
