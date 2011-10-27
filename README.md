@@ -10,7 +10,8 @@ https://github.com/ibolmo/jasmine-jstd-adapter
 http://pivotal.github.com/jasmine
 http://sinonjs.org/
 
-h2. JstdUtil
+JstdUtil
+-------------
 I tillegg kan det være fornuftig å laste ned "jstdutil" - JS Test Driver Util. 
 Dette verktøyet lar deg kjøre kommandoene "jstestdriver" og "autotest" fra kommandolinja
 Krever Ruby installert.
@@ -23,35 +24,42 @@ sudo gem install jstdutil
 </pre>
 export JSTESTDRIVER_HOME=(mappe JsTestDriver-jar'en ligger i, ligger i ./lib/js-test-driver)
 
-h2. Node.js
+Node.js
+-------------
 Node må installeres. Dette gjøres enkelt med homebrew på Mac:
 brew install node
 
 Eller f.eks for Windows: http://nodejs.org/#download
 
-h2. Now.js
+Now.js
+-------------
 TODO
 <pre>
 npm install now -g
 </pre>
 
-h2. Jasmine-node
+Jasmine-node
+-------------
 TODO
 https://github.com/mhevery/jasmine-node
 
-h1. DOKUMENTASJON
+DOKUMENTASJON
+=============
 
-h2. JS Test Driver
+JS Test Driver
+--------------
 Hvordan funker det:
 * http://code.google.com/p/js-test-driver/wiki/DesignPrinciples
 Bruk:
 * http://code.google.com/p/js-test-driver/wiki/GettingStarted#Writing_configuration_file
 
-h2. Jasmine
+Jasmine
+-------------
 Bruk:
 * https://github.com/pivotal/jasmine/wiki
 	
-h2. Sinon
+Sinon
+-------------
 Bruk:
 * http://sinonjs.org/docs/
 
