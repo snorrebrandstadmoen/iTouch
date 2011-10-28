@@ -1,3 +1,4 @@
+
 function Calculator() {
 
 	this.add = function(num1, num2) {
@@ -10,4 +11,8 @@ function Calculator() {
 	
 	};
 	*/
+};
+
+if (typeof module === 'object') {
+  module.exports = Calculator;
 }

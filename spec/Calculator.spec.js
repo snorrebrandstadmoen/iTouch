@@ -1,3 +1,7 @@
+if (typeof require === "function" && typeof module !== "undefined") {
+	var Calculator = require("../src/Calculator");
+}
+
 describe("Calculator",
 function() {
     var calculator;
