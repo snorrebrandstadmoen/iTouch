@@ -41,20 +41,5 @@ describe("Typing", function(){
 		
 	});
 
-	it("should return game status", function() {
-		var typedText = "D";
 
-		var typing = Object.create(TDD.typing);
-		
-		var results = typing.validate(originalText, typedText);
-		expect(results.gameStatus).toEqual('InProgress');
-		
-	});
-	
-	it("should return completed status when game is completed", function() {
-		var typing = Object.create(TDD.typing);
-		
-		var results = typing.validate(originalText, originalText);
-		expect(results.gameStatus).toEqual("Completed");
-	});
 });
