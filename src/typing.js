@@ -4,6 +4,7 @@ var TDD = TDD || {};
 	TDD.typing = {};
 	TDD.typing.validate = function(originalText, typedText) {
 		
+		var gameStatus = 'InProgress';
 		var arrayOrig = originalText.split('');
 		var arrayTyped = typedText.split('');
 		var errors = [];
@@ -14,8 +15,15 @@ var TDD = TDD || {};
 			}
 		};
 		
+		if(arrayOrig.length == arrayTyped.length && errors.length == 0)
+		{
+			gameStatus = 'Completed';
+		}
+		
+		
 		return {
-			"errors" : errors
+			"errors" : errors,
+			"gameStatus" : gameStatus
 		};
 	};
 }());
