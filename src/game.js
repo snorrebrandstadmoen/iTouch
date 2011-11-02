@@ -8,8 +8,9 @@ TDD.typing = require("./typing");
 	game.validate = function(typedText) {
 		var typing = Object.create(TDD.typing);
 		var result = typing.validate(this.originalText, typedText);
-		console.log(result);
+		
 		game.distributeScores();
+		
 		if (result['gameStatus'] === 'Completed') {
 			TDD.game.gameOver();
 		}
