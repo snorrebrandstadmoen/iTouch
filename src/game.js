@@ -1,13 +1,13 @@
 var TDD = TDD || {};
-TDD.typing = require("./typing");
+TDD.scoring = require("./scoring");
 
 (function() {
 	TDD.game = {};
 	var game = TDD.game;
 	game.distributeScores = function() {};
 	game.validate = function(typedText) {
-		var typing = Object.create(TDD.typing);
-		var result = typing.validate(this.originalText, typedText);
+		var scoring = Object.create(TDD.scoring);
+		var result = scoring.validate(this.originalText, typedText);
 		
 		game.distributeScores();
 		
