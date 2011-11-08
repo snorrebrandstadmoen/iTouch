@@ -2,16 +2,17 @@ var TDD = TDD || {};
 TDD.scoring = require("./scoring");
 
 (function() {
-	TDD.game = {};
-	var game = TDD.game;
+	var game = TDD.game = {};
+	var scoring = Object.create(TDD.scoring);
+	var gameStatus = 'InProgress';
+	
 	game.distributeScores = function() {};
 	game.validate = function(typedText) {
-		var scoring = Object.create(TDD.scoring);
 		var result = scoring.validate(this.originalText, typedText);
 		
 		game.distributeScores();
-		
-		if (result['gameStatus'] === 'Completed') {
+		if(result.percentage === 100 && result.errors.length === 0) {
+			gameStatus = 'Completed';
 			TDD.game.gameOver();
 		}
 	};

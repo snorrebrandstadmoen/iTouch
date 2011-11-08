@@ -7,7 +7,7 @@ function() {
     var originalText;
 
     beforeEach(function() {
-        originalText = "Dette er en"
+        originalText = "Dette er en";
     });
 
     it("should validate text and distribute scores upon validation request",
@@ -21,7 +21,6 @@ function() {
         TDD.game.validate(typedText);
         expect(TDD.game.distributeScores).toHaveBeenCalled();
     });
-
 
     it("should NOT end game when text is errornous",
     function() {

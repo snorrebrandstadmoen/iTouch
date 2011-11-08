@@ -3,8 +3,7 @@ var TDD = TDD || {};
 (function() {
 	var scoring = TDD.scoring = {};
 	scoring.validate = function(originalText, typedText) {
-		
-		var gameStatus = 'InProgress';
+
 		var arrayOrig = originalText.split('');
 		var arrayTyped = typedText.split('');
 		var errors = [];
@@ -15,23 +14,12 @@ var TDD = TDD || {};
 			}
 		};
 		
-		if(arrayOrig.length == arrayTyped.length && errors.length == 0)
-		{
-			gameStatus = 'Completed';
-		}
-		
-		
 		return {
 			"errors" : errors,
-			"gameStatus" : gameStatus
+			"percentage" : typedText.length/originalText.length*100
 		};
 	};
-	
-	scoring.calculateScore = function(originalText, typedText) {
-		return {
-			"percentage" : typedText.length/originalText.length*100
-		}
-	};
+
 }());
 
 if (typeof module === 'object') {
