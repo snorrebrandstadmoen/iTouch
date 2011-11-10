@@ -1,0 +1,32 @@
+<!DOCTYPE>
+<head>
+	<script type="text/javascript" src="/jquery-1.6.4/jquery-1.6.4.min.js"></script>
+	<script src="/nowjs/now.js"></script>
+
+	<script>
+	$(document).ready(function(){
+	  now.receiveMessage = function(name, message){
+	    $("#messages").append("<br>" + name + ": " + message);
+	  }
+
+	  $("#send-button").click(function(){
+	    now.distributeMessage($("#text-input").val());
+	    $("#text-input").val("");
+	  });
+
+
+	  now.name = "hallo";
+
+	});
+	</script>
+	</head>
+
+<div>
+	Tekst som skal tastes inn
+</div>
+
+<textarea>
+</textarea>
+
+
+	
