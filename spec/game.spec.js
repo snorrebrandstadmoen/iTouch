@@ -8,6 +8,14 @@ function() {
 
     beforeEach(function() {
         originalText = "Dette er en";
+
+		TDD.game.everyone.now = {
+			distributeScores: function() {
+				console.log("asdf");
+			}
+		}
+
+        // spyOn(TDD.game.everyone.now, "distributeScores").andCallFake(function() {console.log("sdf")});
     });
 
     it("should validate text and distribute scores upon validation request",

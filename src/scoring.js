@@ -3,10 +3,11 @@ var TDD = TDD || {};
 (function() {
 	var scoring = TDD.scoring = {};
 	scoring.validate = function(originalText, typedText) {
-
 		var arrayOrig = originalText.split('');
 		var arrayTyped = typedText.split('');
 		var errors = [];
+		
+		console.log(originalText);
 		
 		for (var i=0; i < arrayTyped.length; i++) {
 			if (arrayOrig[i] !== arrayTyped[i]) {

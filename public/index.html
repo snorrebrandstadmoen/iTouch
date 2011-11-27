@@ -5,28 +5,38 @@
 
 	<script>
 	$(document).ready(function(){
-	  now.receiveMessage = function(name, message){
-	    $("#messages").append("<br>" + name + ": " + message);
+	  now.receiveScores = function(clientId, score){
+	    $("#messages").html("Errors: " + score.errors + " " + score.percentage + "%");
 	  }
 
-	  $("#send-button").click(function(){
-	    now.distributeMessage($("#text-input").val());
-	    $("#text-input").val("");
+	  $("#typed-text").keyup(function(){
+	    now.validate($("#typed-text").text());
 	  });
-
-
-	  now.name = "hallo";
-
+	
+		$("#typed-text").focus();
 	});
+	
+	
 	</script>
 	</head>
 
 <div>
 	Tekst som skal tastes inn
 </div>
-
-<textarea>
-</textarea>
-
-
-	
+<style>
+#typed-text {
+background-color: white;
+border: 1px solid #CCC;
+width: 50%;
+min-height: 30px;
+display: block;
+margin-bottom: 16px;
+margin-top: 8px;
+-webkit-border-radius: 5px;
+border-radius: 5px;
+-webkit-transition: all 0.5s ease-in-out;
+transition: all 0.5s ease-in-out;
+}
+</style>
+<div id="messages"></div>
+<div contenteditable="true" id="typed-text" value=""/>
