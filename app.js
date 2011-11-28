@@ -1,5 +1,22 @@
-var game = require("./src/game");
+var express = require('express');
+var app = express.createServer();
+app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/lib'));
+app.listen(8080);
 
-game.setOriginalText("Dette er en test");
-game.init();
+var nowjs = require("now");
+everyone = nowjs.initialize(app);
+
+
+
+
+var TDD = TDD || {};
+TDD.game = require("./src/game");
+TDD.scoring = require("./src/scoring");
+
+var game = TDD.game.create({
+    originalText: "Dette er en test",
+	scoring: TDD.scoring.create(),
+    everyone: everyone
+}).init();
 

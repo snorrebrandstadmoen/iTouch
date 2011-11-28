@@ -11,7 +11,7 @@ function() {
 
     beforeEach(function() {
         originalText = "Dette er en test"
-        scoring = Object.create(TDD.scoring);
+        scoring = TDD.scoring.create();
     });
 
     describe("Text validation",
@@ -20,8 +20,6 @@ function() {
         it("should validate typed text",
         function() {
             var typedText = "DeTte er en test";
-
-            var scoring = Object.create(TDD.scoring);
 
             expect(scoring.validate).toBeDefined();
 

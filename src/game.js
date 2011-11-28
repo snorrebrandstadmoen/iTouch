@@ -1,49 +1,48 @@
 var TDD = TDD || {};
-TDD.scoring = require("./scoring");
 
  (function() {
-    var game = TDD.game = {};
-    var originalText = "";
-    var everyone = {};
-	game.everyone = everyone;
+    TDD.game = {
 
-    game.init = function() {
-        var express = require('express');
-        var app = express.createServer();
-        app.use(express.static(__dirname + '/../public'));
-        app.use(express.static(__dirname + '/../lib'));
-        app.listen(8080);
+        create: function(params) {
+            return Object.create(this, {
+                originalText: {
+                    value: params.originalText
+                },
+                scoring: {
+                    value: params.scoring
+                },
+                everyone: {
+                    value: params.everyone
+                },
+                gameStatus: {
+                    value: "InProgress"
+                }
+            })
+        },
 
-        var nowjs = require("now");
-        everyone = nowjs.initialize(app);
+        init: function() {
+            var self = this;
+            this.everyone.now.validate = function(typedText) {
+                self.validate(this, typedText);
+            }
+        },
 
-        everyone.now.validate = function(typedText) {
-            game.validate(this, typedText);
-        };
-    }
+        validate: function(now, typedText) {
+            var score = this.scoring.validate(this.originalText, typedText);
+            this.distributeScores(now, score);
+            if (score.percentage === 100 && score.errors.length === 0) {
+                gameStatus = "Completed";
+                this.gameOver();
+            }
+        },
 
-    var scoring = Object.create(TDD.scoring);
-    var gameStatus = 'InProgress';
+        distributeScores: function(now, score) {
+            this.everyone.now.receiveScores(now.user.clientId, score);
+        },
 
-    game.validate = function(now, typedText) {
-        var score = scoring.validate(game.originalText, typedText);
-        game.distributeScores(now, score);
-        if (score.percentage === 100 && score.errors.length === 0) {
-            gameStatus = 'Completed';
-            this.gameOver();
+        gameOver: function() {
+            console.log("game over!!");
         }
-    };
-
-    game.distributeScores = function(now, score) {
-        everyone.now.receiveScores(now.user.clientId, score);
-    };
-
-    game.setOriginalText = function(originalText) {
-        game.originalText = originalText;
-    };
-
-    game.gameOver = function() {
-        console.log("game over!!");
     };
 
 } ());

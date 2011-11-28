@@ -1,53 +1,64 @@
-var TDD = TDD || {};
-TDD.game = require("../src/game");
+if (typeof require === "function" && typeof module !== "undefined") {
+    var TDD = TDD || {};
+    TDD.game = require("../src/game");
+    TDD.scoring = require("../src/scoring");
+}
 
 describe("Game",
 function() {
 
-    var originalText;
-
     beforeEach(function() {
-        originalText = "Dette er en";
+        this.originalText = "Dette er en";
 
-		TDD.game.everyone.now = {
-			distributeScores: function() {
-				console.log("asdf");
-			}
-		}
+        this.everyone = {
+	        now : {
+	            validate: function() {},
+				receiveScores: function() {},
+				user : {
+					clientId: "123"
+				}
+	        }
+        };
 
-        // spyOn(TDD.game.everyone.now, "distributeScores").andCallFake(function() {console.log("sdf")});
+        this.game = TDD.game.create({
+            originalText: this.originalText,
+			scoring: TDD.scoring.create(),
+            everyone: this.everyone
+        });
+        expect(this.game.originalText).toEqual(this.originalText);
     });
 
     it("should validate text and distribute scores upon validation request",
     function() {
-        spyOn(TDD.game, 'distributeScores');
         var typedText = "Dette er en";
 
-        TDD.game.setOriginalText(originalText);
-        expect(TDD.game.originalText).toEqual(originalText);
+        spyOn(this.game, 'distributeScores');
 
-        TDD.game.validate(typedText);
-        expect(TDD.game.distributeScores).toHaveBeenCalled();
+        this.game.validate(this.everyone.now, typedText);
+
+        expect(this.game.distributeScores).toHaveBeenCalled();
     });
 
     it("should NOT end game when text is errornous",
     function() {
         var typedText = "D";
+    
+        spyOn(this.game, 'gameOver');
 
-        TDD.game.setOriginalText(originalText);
+        this.game.validate(this.everyone.now, typedText);
 
-        spyOn(TDD.game, 'gameOver');
-        TDD.game.validate(typedText);
-        expect(TDD.game.gameOver).not.toHaveBeenCalled();
+        expect(this.game.gameOver).not.toHaveBeenCalled();
     });
-
+    
     it("should end game when text is complete with no errors",
     function() {
-        TDD.game.setOriginalText(originalText);
+		var typedText = this.originalText;
+        
+        spyOn(this.game, 'gameOver');
 
-        spyOn(TDD.game, 'gameOver');
-        TDD.game.validate(originalText);
-        expect(TDD.game.gameOver).toHaveBeenCalled();
+        this.game.validate(this.everyone.now, typedText);
+
+        expect(this.game.gameOver).toHaveBeenCalled();
     });
 
 });
