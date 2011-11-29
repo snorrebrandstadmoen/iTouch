@@ -1,40 +1,42 @@
 <!DOCTYPE>
+<html>
 <head>
 	<script type="text/javascript" src="/jquery-1.6.4/jquery-1.6.4.min.js"></script>
 	<script src="/nowjs/now.js"></script>
+	<script src="/game_controller.js"></script>
 
-	<script>
-	$(document).ready(function(){
-	  now.receiveScores = function(clientId, score){
-	    $("#messages").html("Errors: " + score.errors + " " + score.percentage + "%");
-	  }
-
-	  $("#typed-text").keyup(function(){
-	    now.validate($("#typed-text").text());
-	  });
-	
-		$("#typed-text").focus();
+	<script type="text/javascript">
+	now.ready(function(){
+		TDD.gameController.create({
+			typedTextElement: $("#typed-text"),
+			textToBeTypedElement:$("#text-to-be-typed"),
+           	errorMessageElement:$("#message"),
+           	now:now
+		}).init();
 	});
-	
-	
 	</script>
 	</head>
 
-<div id="text-to-be-typed"/>
-<style>
-#typed-text {
-background-color: white;
-border: 1px solid #CCC;
-width: 50%;
-min-height: 30px;
-display: block;
-margin-bottom: 16px;
-margin-top: 8px;
--webkit-border-radius: 5px;
-border-radius: 5px;
--webkit-transition: all 0.5s ease-in-out;
-transition: all 0.5s ease-in-out;
-}
-</style>
-<div id="messages"></div>
-<div contenteditable="true" id="typed-text" value=""/>
+	<style>
+
+	#typed-text {
+		background-color: #857362;
+		color: #CBC0B7;
+		border: 1px solid #857362;
+		width: 50%;
+		min-height: 30px;
+		display: block;
+		margin: 8px 0;
+		border-radius:0px;
+	}
+	body {
+		background-color: #0C0703;
+		color: #76ADB2;
+	}
+	
+	</style>
+	<body>
+		<div id="text-to-be-typed"><!-- --></div>
+		<div id="typed-text" contenteditable="true"/>
+	</body>
+</html>

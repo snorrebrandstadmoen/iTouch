@@ -14,6 +14,7 @@ function() {
 	        now : {
 	            validate: function() {},
 				receiveScores: function() {},
+				gameOver: function() {},
 				user : {
 					clientId: "123"
 				}

@@ -24,7 +24,10 @@ var TDD = TDD || {};
             var self = this;
             this.everyone.now.validate = function(typedText) {
                 self.validate(this, typedText);
-            }
+            },
+			this.everyone.now.getTextToBeTyped = function() {
+				everyone.now.displayTextToBeTyped(self.originalText);
+			}
         },
 
         validate: function(now, typedText) {
@@ -32,7 +35,7 @@ var TDD = TDD || {};
             this.distributeScores(now, score);
             if (score.percentage === 100 && score.errors.length === 0) {
                 gameStatus = "Completed";
-                this.gameOver();
+                this.gameOver(now);
             }
         },
 
@@ -40,8 +43,8 @@ var TDD = TDD || {};
             this.everyone.now.receiveScores(now.user.clientId, score);
         },
 
-        gameOver: function() {
-            console.log("game over!!");
+        gameOver: function(now) {
+			this.everyone.now.gameOver();
         }
     };
 
