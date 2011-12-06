@@ -21,7 +21,7 @@ var TDD = TDD || {};
                 "errors": errors,
                 "percentage": typedText.length / originalText.length * 100
             };
-        }
+        },
     }
 
 } ());

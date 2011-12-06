@@ -26,8 +26,18 @@ function() {
 			scoring: TDD.scoring.create(),
             everyone: this.everyone
         });
-        expect(this.game.originalText).toEqual(this.originalText);
     });
+
+	it("should massage original text", function () {
+		var originalText = 'Oh my God, someone\'s trying to kill me!  Oh wait, it\'s for Bart.\n\n\t\t-- Homer Simpson\n\t\t   Cape Feare';
+		this.game = TDD.game.create({
+            originalText: originalText,
+			scoring: TDD.scoring.create(),
+            everyone: this.everyone
+        });
+
+		expect(this.game.originalText).toEqual('Oh my God, someone\'s trying to kill me! Oh wait, it\'s for Bart.');
+	});
 
     it("should validate text and distribute scores upon validation request",
     function() {

@@ -8,16 +8,27 @@ app.listen(8080);
 var nowjs = require("now");
 everyone = nowjs.initialize(app);
 
-
-
-
 var TDD = TDD || {};
 TDD.game = require("./src/game");
 TDD.scoring = require("./src/scoring");
 
-var game = TDD.game.create({
-    originalText: "Dette er en test",
-	scoring: TDD.scoring.create(),
-    everyone: everyone
-}).init();
+var request = require('request');
+request('http://iheartquotes.com/api/v1/random?format=json&max_lines=4&show_source=false&source=simpsons_homer',
+function(error, response, body) {
+    var quote;
+    if (!error && response.statusCode === 200) {
+        quote = JSON.parse(body).quote;
+		console.log(JSON.parse(body));
+    } else {
+        quote = "Dette er en test";
+    }
+    TDD.game.create({
+        originalText: quote,
+        scoring: TDD.scoring.create(),
+        everyone: everyone
+    }).init();
+});
+
+
+
 

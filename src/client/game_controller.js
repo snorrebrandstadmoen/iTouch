@@ -15,6 +15,9 @@ if (typeof require === "function" && typeof module !== "undefined") {
                 textToBeTypedElement: {
                     value: params.textToBeTypedElement
                 },
+				wrapperElement: {
+					value: params.wrapperElement
+				},
                 now: {
                     value: params.now
                 }
@@ -29,7 +32,7 @@ if (typeof require === "function" && typeof module !== "undefined") {
 				if (!elem) {
 					elem = $("<div/>", {
 			            id: clientId,
-			        }).appendTo(document.body);
+			        }).appendTo(self.wrapperElement);
 				}
 			    $(elem).html("ClientId: " + clientId + " Errors: " + score.errors + " Completion:" + score.percentage + "%");
 			};
