@@ -18,7 +18,7 @@ function(error, response, body) {
     var quote;
     if (!error && response.statusCode === 200) {
         quote = JSON.parse(body).quote;
-		console.log(JSON.parse(body));
+		console.log(quote);
     } else {
         quote = "Dette er en test";
     }

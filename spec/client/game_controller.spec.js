@@ -43,7 +43,7 @@ function() {
         expect(this.now.validate).toHaveBeenCalled();
 
         // TODO: hvorfor feiler denne ?????
-        // expect($(this.typedTextElement).is(":focus")).toBeTruthy();
+        //expect($(this.typedTextElement).is(":focus")).toBeTruthy();
     });
 
 		//     it("should color text upon text validation",
