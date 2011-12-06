@@ -32,8 +32,11 @@ if (typeof require === "function" && typeof module !== "undefined") {
 				if (!elem) {
 					elem = $("<div/>", {
 			            id: clientId,
+						class: "test"
 			        }).appendTo(self.wrapperElement);
 				}
+				// jstestdriver.console.log(elem.attr("id"));
+				
 			    $(elem).html("ClientId: " + clientId + " Errors: " + score.errors + " Completion:" + score.percentage + "%");
 			};
 			
