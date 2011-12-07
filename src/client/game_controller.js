@@ -1,10 +1,6 @@
 var TDD = TDD || {};
 
-if (typeof require === "function" && typeof module !== "undefined") {
-    var $ = jQuery = require('jquery');
-}
-
- (function() {
+(function() {
     TDD.gameController = {
 
         create: function(params) {
@@ -45,9 +41,11 @@ if (typeof require === "function" && typeof module !== "undefined") {
             this.now.displayTextToBeTyped = function(textToBeTyped) {
                 self.textToBeTyped = textToBeTyped;
                 $(self.textToBeTypedElement).html(textToBeTyped).lettering();
-            };
+				$(self.typedTextElement).focus();            
+			};
 
             this.now.gameOver = function() {
+	            $(self.typedTextElement).unbind();
                 $(self.typedTextElement).attr("contenteditable", false).html("GAME OVER!!");
             };
 
@@ -55,7 +53,6 @@ if (typeof require === "function" && typeof module !== "undefined") {
                 self.now.validate($(this).text());
             });
 
-            $(this.typedTextElement).focus();
             this.now.getTextToBeTyped();
         },
 
@@ -86,7 +83,3 @@ if (typeof require === "function" && typeof module !== "undefined") {
 
 
 } ());
-
-if (typeof module === 'object') {
-    module.exports = TDD.gameController;
-}
