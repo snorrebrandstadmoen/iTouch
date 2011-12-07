@@ -35,12 +35,6 @@ function() {
 
     });
 
-    afterEach(function() {
-        $(this.textToBeTypedElement).empty().remove();
-        $(this.typedTextElement).empty().remove();
-        $(this.wrapperElement).empty().remove();
-    });
-
     it("should show text to be typed on init game",
     function() {
         var originalText = "En tekst";
