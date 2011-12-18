@@ -1,6 +1,6 @@
 var TDD = TDD || {};
 
-(function() {
+ (function() {
     TDD.gameController = {
 
         create: function(params) {
@@ -14,6 +14,9 @@ var TDD = TDD || {};
                 wrapperElement: {
                     value: params.wrapperElement
                 },
+				startButton: {
+					value: params.startButton
+				},
                 now: {
                     value: params.now
                 }
@@ -26,38 +29,55 @@ var TDD = TDD || {};
             this.now.receiveScores = function(clientId, score) {
                 var elem = document.getElementById(clientId);
                 if (!elem) {
-                    elem = $("<div/>", {
+					var name = $("<span/>").html(clientId).appendTo(self.wrapperElement);
+                    elem = $("<progress/>", {
                         id: clientId,
-                    }).appendTo(self.wrapperElement);
+                        max: 100,
+                        value: 0,
+                        width: "100%",
+                    }).appendTo(name);
                 }
-
-                $(elem).html("ClientId: " + clientId + " Errors: " + score.errors + " Completion:" + score.percentage + "%");
+				
+                // $(elem).html("ClientId: " + clientId + " Errors: " + score.errors + " Completion:" + score.percentage + "%");
+                $(elem).attr("value", score.percentage);
 
                 if (clientId === self.now.core.clientId) {
                     self.colorTextToBeTyped(score.errors);
                 }
             };
 
-            this.now.displayTextToBeTyped = function(textToBeTyped) {
+            this.now.displayTextToBeTyped = function(textToBeTyped) {	
                 self.textToBeTyped = textToBeTyped;
                 $(self.textToBeTypedElement).html(textToBeTyped).lettering();
-				$(self.typedTextElement).focus();            
-			};
+                $(self.typedTextElement).attr("contenteditable", true);
+                $(self.typedTextElement).focus();
+            };
 
             this.now.gameOver = function() {
-	            $(self.typedTextElement).unbind();
+                $(self.typedTextElement).unbind();
                 $(self.typedTextElement).attr("contenteditable", false).html("GAME OVER!!");
             };
 
             $(this.typedTextElement).keyup(function() {
                 self.now.validate($(this).text());
             });
+            $(self.typedTextElement).attr("contenteditable", false);
 
-            this.now.getTextToBeTyped();
+
+            $(this.startButton).click(function() {
+                self.startGame();
+            });
+
+			return this;
         },
+		
+		startGame: function() {
+			var self = this;
+			setTimeout(function() {self.now.startGame()}, 5000);
+		},
 
         colorTextToBeTyped: function(errors) {
-			var typedText = $(this.typedTextElement).text();
+            var typedText = $(this.typedTextElement).text();
             for (var i = 0; i < this.textToBeTyped.length; i++) {
                 var span = $(this.textToBeTypedElement).find(":nth-child(" + (i + 1) + ")");
 
@@ -69,7 +89,7 @@ var TDD = TDD || {};
                 else if (i >= typedText.length) {
                     span.css({
                         "color": "rgb(0, 0, 0)"
-                    });                    
+                    });
                 }
                 else {
                     span.css({

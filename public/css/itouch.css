@@ -1,0 +1,36 @@
+#wrapper {
+max-width: 30em;
+margin: 0 auto;
+padding: 0 1em;
+}
+
+:focus {
+outline: none;
+}
+
+h1 {
+font-family: "Palatino Linotype", Palatino, "Hoefler Text", "Baskerville old face", Georgia, Garamond, "Times New Roman", serif;
+font-size: 3em;
+}
+
+#typed-text {
+background-color: #EEE;
+border: 1px solid #DDD;
+border-radius: 5px;
+margin: 0px 0px;
+padding: 9px;
+padding-bottom: 9px;
+font-size: 2em;
+min-height: 30px;
+}
+
+#text-to-be-typed {
+padding: 10px;
+font-size: 2em;
+}
+
+body {
+font-family: Arial, "Lucida Grande", Verdana, Sans-serif;
+font-size: 100%;
+margin: auto 0;
+}

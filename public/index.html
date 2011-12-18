@@ -1,7 +1,9 @@
 <!DOCTYPE>
 <html>
 <head>
-	<script type="text/javascript" src="/jquery-1.6.4/jquery-1.6.4.min.js"></script>
+	<link rel="stylesheet" href="/css/itouch.css" type="text/css">
+	
+	<script type="text/javascript" src="/jquery-1.6.4/jquery-1.6.4.js"></script>
     <script type="text/javascript" src="/jquery-lettering-0.6.1/jquery.lettering-0.6.1.min.js"></script>
 	
 	<script src="/nowjs/now.js"></script>
@@ -14,61 +16,19 @@
 			textToBeTypedElement:$("#text-to-be-typed"),
            	errorMessageElement:$("#message"),
 			wrapperElement:$("#wrapper"),
+			startButton:$("#startButton"),
            	now:now
 		}).init();
 	});
 	</script>
 	</head>
 
-	<style>
-	
-	#wrapper {
-	max-width: 30em;
-	margin: 0 auto;
-	padding: 0 1em;
-	}
-	
-	:focus {
-	    outline: none;
-	}
-	
-	h1 {
-		font-family: "Palatino Linotype", Palatino, "Hoefler Text", "Baskerville old face", Georgia, Garamond, "Times New Roman", serif;
-		font-size: 3em;
-	}
-
-	#typed-text {
-		background-color: #EEE;
-		border: 1px solid #DDD;
-		border-radius: 5px;
-		margin: 0px 0px;
-		padding: 9px;
-		padding-bottom: 9px;
-		font-size: 2em;
-	}
-	
-	#text-to-be-typed {
-		padding: 10px;
-		font-size: 2em;
-		
-	}
-	
-	body {
-		font-family: Arial, "Lucida Grande", Verdana, Sans-serif;
-		font-size: 100%;
-		margin: auto 0;
-		background-color: white;
-		
-/*		background-color: #0C0703;
-		color: #76ADB2;*/
-	}
-	
-	</style>
 	<body>
 		<div id="wrapper">
 			<h1>iTouch</h1>
-		<div id="text-to-be-typed"><!-- --></div>
-		<div id="typed-text" contenteditable="true"><!-- --></div>
+			<button id="startButton">Start game</button>
+			<div id="text-to-be-typed"></div>
+			<div id="typed-text" contenteditable="true"></div>
 		</div>
 	</body>
 </html>

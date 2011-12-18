@@ -13,7 +13,9 @@ function() {
         this.everyone = {
 	        now : {
 	            validate: function() {},
-				receiveScores: function() {},
+				receiveScores: function(clientId, score) {},
+				startGame: function() {},
+				displayTextToBeTyped: function() {},
 				gameOver: function() {},
 				user : {
 					clientId: "123"
@@ -26,6 +28,8 @@ function() {
 			scoring: TDD.scoring.create(),
             everyone: this.everyone
         });
+
+		expect(this.game.gameStatus).toEqual("NotStarted");
     });
 
 	it("should massage original text", function () {
@@ -43,33 +47,53 @@ function() {
     function() {
         var typedText = "Dette er en";
 
-        spyOn(this.game, 'distributeScores');
+		spyOn(this.everyone.now, 'receiveScores');
 
         this.game.validate(this.everyone.now, typedText);
 
-        expect(this.game.distributeScores).toHaveBeenCalled();
+        expect(this.everyone.now.receiveScores).toHaveBeenCalled();
     });
 
     it("should NOT end game when text is errornous",
     function() {
         var typedText = "D";
+        
+		spyOn(this.game.scoring, "validate").andReturn({
+            "errors": [1],
+            "percentage": 100
+        });
     
-        spyOn(this.game, 'gameOver');
+        spyOn(this.game, 'endGame');
 
         this.game.validate(this.everyone.now, typedText);
 
-        expect(this.game.gameOver).not.toHaveBeenCalled();
+        expect(this.game.endGame).not.toHaveBeenCalled();
     });
     
     it("should end game when text is complete with no errors",
     function() {
-		var typedText = this.originalText;
+		var typedText = this.originalText + "asdf";
         
-        spyOn(this.game, 'gameOver');
+        spyOn(this.game.scoring, "validate").andReturn({
+            "errors": [],
+            "percentage": 100
+        });
+        spyOn(this.everyone.now, 'gameOver');
 
         this.game.validate(this.everyone.now, typedText);
 
-        expect(this.game.gameOver).toHaveBeenCalled();
+        expect(this.everyone.now.gameOver).toHaveBeenCalled();
+		expect(this.game.gameStatus).toEqual("Completed");
     });
+
+	it("should start game on request", function () {
+		spyOn(this.everyone.now, 'displayTextToBeTyped');
+        
+		this.game.startGame();
+		
+		expect(this.everyone.now.displayTextToBeTyped).toHaveBeenCalled(); 
+		expect(this.game.gameStatus).toEqual("InProgress");
+		
+	});
 
 });

@@ -6,7 +6,7 @@ if (typeof require === "function" && typeof module !== "undefined") {
 
  (function() {
     TDD.game = {
-
+	
         create: function(params) {
             return Object.create(this, {
                 originalText: {
@@ -18,9 +18,6 @@ if (typeof require === "function" && typeof module !== "undefined") {
                 everyone: {
                     value: params.everyone
                 },
-                gameStatus: {
-                    value: "InProgress"
-                }
             })
         },
 
@@ -32,20 +29,24 @@ if (typeof require === "function" && typeof module !== "undefined") {
 
         init: function() {
             var self = this;
+			
             this.everyone.now.validate = function(typedText) {
                 self.validate(this, typedText);
             },
 			this.everyone.now.getTextToBeTyped = function() {
 				everyone.now.displayTextToBeTyped(self.originalText);
+			},
+			this.everyone.now.startGame = function() {
+				self.startGame();
 			}
         },
 
         validate: function(now, typedText) {
             var score = this.scoring.validate(this.originalText, typedText.replace(/\\r/g," "));
             this.distributeScores(now, score);
+
             if (score.percentage === 100 && score.errors.length === 0) {
-                gameStatus = "Completed";
-                this.gameOver(now);
+                this.endGame(now);
             }
         },
 
@@ -53,10 +54,18 @@ if (typeof require === "function" && typeof module !== "undefined") {
             this.everyone.now.receiveScores(now.user.clientId, score);
         },
 
-        gameOver: function(now) {
-			this.everyone.now.gameOver();
+		startGame: function() {
+			this.gameStatus = "InProgress";
+			this.everyone.now.displayTextToBeTyped(this.originalText);
+		},
+
+        endGame: function(now) {
+	        this.gameStatus = "Completed";	
+    		this.everyone.now.gameOver();
         }
     };
+
+	TDD.game.gameStatus = "NotStarted";
 
 } ());
 
