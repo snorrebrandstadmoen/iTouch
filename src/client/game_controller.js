@@ -14,9 +14,9 @@ var TDD = TDD || {};
                 wrapperElement: {
                     value: params.wrapperElement
                 },
-				startButton: {
-					value: params.startButton
-				},
+                startButton: {
+                    value: params.startButton
+                },
                 now: {
                     value: params.now
                 }
@@ -29,7 +29,7 @@ var TDD = TDD || {};
             this.now.receiveScores = function(clientId, score) {
                 var elem = document.getElementById(clientId);
                 if (!elem) {
-					var name = $("<span/>").html(clientId).appendTo(self.wrapperElement);
+                    var name = $("<span/>").html(clientId).appendTo(self.wrapperElement);
                     elem = $("<progress/>", {
                         id: clientId,
                         max: 100,
@@ -37,7 +37,7 @@ var TDD = TDD || {};
                         width: "100%",
                     }).appendTo(name);
                 }
-				
+
                 // $(elem).html("ClientId: " + clientId + " Errors: " + score.errors + " Completion:" + score.percentage + "%");
                 $(elem).attr("value", score.percentage);
 
@@ -46,7 +46,7 @@ var TDD = TDD || {};
                 }
             };
 
-            this.now.displayTextToBeTyped = function(textToBeTyped) {	
+            this.now.displayTextToBeTyped = function(textToBeTyped) {
                 self.textToBeTyped = textToBeTyped;
                 $(self.textToBeTypedElement).html(textToBeTyped).lettering();
                 $(self.typedTextElement).attr("contenteditable", true);
@@ -63,18 +63,17 @@ var TDD = TDD || {};
             });
             $(self.typedTextElement).attr("contenteditable", false);
 
-
             $(this.startButton).click(function() {
                 self.startGame();
             });
 
-			return this;
+            return this;
         },
-		
-		startGame: function() {
-			var self = this;
-			setTimeout(function() {self.now.startGame()}, 5000);
-		},
+
+        startGame: function() {
+			$(this.startButton).hide();
+            this.now.startGame();
+        },
 
         colorTextToBeTyped: function(errors) {
             var typedText = $(this.typedTextElement).text();

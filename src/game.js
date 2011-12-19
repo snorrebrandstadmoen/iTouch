@@ -55,8 +55,12 @@ if (typeof require === "function" && typeof module !== "undefined") {
         },
 
 		startGame: function() {
-			this.gameStatus = "InProgress";
-			this.everyone.now.displayTextToBeTyped(this.originalText);
+			var self = this;
+			self.gameStatus = "InProgress";
+			setTimeout(function() {
+				self.everyone.now.displayTextToBeTyped(self.originalText);
+            },
+            5000);
 		},
 
         endGame: function(now) {

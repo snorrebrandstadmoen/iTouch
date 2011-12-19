@@ -40,14 +40,9 @@ function() {
             now: this.now
         }).init();
 
-        this.clock = sinon.useFakeTimers();
     });
 
-    afterEach(function() {
-        this.clock.restore();
-    });
-
-    it("should show text to be typed 5 seconds after game is started",
+    it("should show text to be typed after game is started",
     function() {
         var originalText = "En tekst";
         var self = this;
@@ -56,15 +51,10 @@ function() {
         });
 		
 		expect(this.typedTextElement.attr("contenteditable")).toEqual("false");
-        
+
         this.game.startGame();
-
-        this.clock.tick(4000);
-        expect($(this.textToBeTypedElement).text()).toEqual('');
-        this.clock.tick(1000);
         expect($(this.textToBeTypedElement).text()).toEqual(originalText);
-
-        expect(this.typedTextElement.attr("contenteditable")).toEqual("true");
+        expect($(this.typedTextElement).attr("contenteditable")).toEqual("true");
     });
 
 	it("should do start game when start button is clicked", function () {
@@ -73,6 +63,8 @@ function() {
 		this.startButton.trigger("click");
 		
 		expect(this.game.startGame).toHaveBeenCalled();
+		expect($(this.startButton).is(':hidden')).toBeTruthy();
+        
 	});
 
     it("should call to validate on server on keyup",
