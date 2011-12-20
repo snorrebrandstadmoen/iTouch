@@ -43,7 +43,7 @@ var TDD = TDD || {};
                     }).appendTo(self.wrapperElement);
                 }
 
-                $(elem).attr("value", score.percentage).prev().text(user.name + ": errors: " + score.errors.length);
+                $(elem).attr("value", score.percentage).prev().text(user.name + ": " + score.errors.length + " feil, " + Math.round(score.percentage) + "% ferdig, " + " minuspoeng: " + (-Math.round(score.coefficient*100)/100));
 
                 if (user.clientId === self.now.core.clientId) {
                     self.colorTextToBeTyped(score.errors);

@@ -16,10 +16,12 @@ var TDD = TDD || {};
                     errors.push(i);
                 }
             };
-
+			var score = typedText.length / originalText.length * 100;
+			score = (score > 100 ? 100 : score);
             return {
                 "errors": errors,
-                "percentage": typedText.length / originalText.length * 100
+                "percentage": score,
+				"coefficient": errors.length/score*100
             };
         },
     }
