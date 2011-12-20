@@ -13,15 +13,20 @@ font-family: "Palatino Linotype", Palatino, "Hoefler Text", "Baskerville old fac
 font-size: 3em;
 }
 
+
 #typed-text {
+display: none;
 background-color: #EEE;
 border: 1px solid #DDD;
 border-radius: 5px;
-margin: 0px 0px;
-padding: 9px;
-padding-bottom: 9px;
 font-size: 2em;
-min-height: 30px;
+padding: 9px;
+min-height: 35px;
+margin-bottom:20px;
+}
+
+#typed-text:focus {
+box-shadow: 0 0 5px #EEE;
 }
 
 #text-to-be-typed {
@@ -33,4 +38,44 @@ body {
 font-family: Arial, "Lucida Grande", Verdana, Sans-serif;
 font-size: 100%;
 margin: auto 0;
+}
+
+input {
+box-shadow: 0 0 5px rgba(0, 128, 0, 1);
+border: 1px solid rgba(0,128,0, 0.8);
+border-radius: 5px;
+font-size: 1em;
+padding: 9px;
+margin: 0;
+width:100%;
+}
+
+input:focus {
+box-shadow: 0 0 5px rgba(0, 128, 0, 1);
+border: 1px solid rgba(0,128,0, 0.8);
+}
+
+button {
+display: none;
+font-size: 1em;
+color: #123d54;
+padding: 10px 20px;
+background: -moz-linear-gradient(
+		top,
+		#afd9fa 0%,
+		#588fad);
+background: -webkit-gradient(
+		linear, left top, left bottom, 
+		from(#afd9fa),
+		to(#588fad));
+border-radius: 6px;
+-moz-border-radius: 6px;
+-webkit-border-radius: 6px;
+border: 1px solid #003366;
+-moz-box-shadow: 0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 1px rgba(255,255,255,1);
+-webkit-box-shadow: 0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 1px rgba(255,255,255,1);
+text-shadow: 0px -1px 0px rgba(000,000,000,0.7),
+		0px 1px 0px rgba(255,255,255,0.3);
 }

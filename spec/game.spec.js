@@ -16,6 +16,7 @@ function() {
                 receiveScores: function(clientId, score) {},
                 startGame: function() {},
                 displayTextToBeTyped: function() {},
+                hideStartButton: function() {},
                 gameOver: function() {},
                 user: {
                     clientId: "123"
@@ -96,6 +97,7 @@ function() {
     it("should start game on request",
     function() {
         spyOn(this.everyone.now, 'displayTextToBeTyped');
+        spyOn(this.everyone.now, 'hideStartButton');
 
         this.game.startGame();
 
@@ -104,27 +106,9 @@ function() {
 
         this.clock.tick(1000);
         expect(this.everyone.now.displayTextToBeTyped).toHaveBeenCalled();
+        expect(this.everyone.now.hideStartButton).toHaveBeenCalled();
         expect(this.game.gameStatus).toEqual("InProgress");
 
     });
 
-    //     it("should show text to be typed 5 seconds after game is started",
-    //     function() {
-    //         var originalText = "En tekst";
-    //         var self = this;
-    //         spyOn(this.now, "startGame").andCallFake(function() {
-    //             self.now.displayTextToBeTyped(originalText);
-    //         });
-    //
-    // expect(this.typedTextElement.attr("contenteditable")).toEqual("false");
-    //
-    //         this.game.startGame();
-    //
-    //         this.clock.tick(4000);
-    //         expect($(this.textToBeTypedElement).text()).toEqual('');
-    //         this.clock.tick(1000);
-    //         expect($(this.textToBeTypedElement).text()).toEqual(originalText);
-    //
-    //         expect(this.typedTextElement.attr("contenteditable")).toEqual("true");
-    //     });
 });

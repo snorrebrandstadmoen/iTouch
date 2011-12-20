@@ -17,6 +17,9 @@ var TDD = TDD || {};
                 startButton: {
                     value: params.startButton
                 },
+                nameInput: {
+                    value: params.nameInput
+                },
                 now: {
                     value: params.now
                 }
@@ -26,52 +29,91 @@ var TDD = TDD || {};
         init: function() {
             var self = this;
 
-            this.now.receiveScores = function(clientId, score) {
-                var elem = document.getElementById(clientId);
+            this.now.receiveScores = function(user, score) {
+                var elem = document.getElementById(user.clientId);
                 if (!elem) {
-                    var name = $("<span/>").html(clientId).appendTo(self.wrapperElement);
+                    var name = $("<span/>", {
+                        id: user.name
+                    }).html(user.name).appendTo(self.wrapperElement);
                     elem = $("<progress/>", {
-                        id: clientId,
+                        id: user.clientId,
                         max: 100,
                         value: 0,
                         width: "100%",
-                    }).appendTo(name);
+                    }).appendTo(self.wrapperElement);
                 }
 
-                // $(elem).html("ClientId: " + clientId + " Errors: " + score.errors + " Completion:" + score.percentage + "%");
-                $(elem).attr("value", score.percentage);
+                $(elem).attr("value", score.percentage).prev().text(user.name + ": errors: " + score.errors.length);
 
-                if (clientId === self.now.core.clientId) {
+                if (user.clientId === self.now.core.clientId) {
                     self.colorTextToBeTyped(score.errors);
                 }
+            };
+
+            this.now.listPlayers = function(user) {
+                var elem = document.getElementById(user.clientId);
+                if (!elem) {
+                    var name = $("<span/>", {
+                        id: user.name + user.clientId
+                    }).html(user.name).appendTo(self.wrapperElement);
+                    elem = $("<progress/>", {
+                        id: user.clientId,
+                        max: 100,
+                        value: 0,
+                        width: "100%",
+                    }).appendTo(self.wrapperElement);
+                }
+            };
+
+            this.now.showStartButton = function() {
+                if (document.getElementById(self.now.name + self.now.core.clientId)) {
+                    $(self.startButton).show();
+                }
+            };
+            
+			this.now.hideStartButton = function() {
+	            $(self.startButton).hide();
             };
 
             this.now.displayTextToBeTyped = function(textToBeTyped) {
                 self.textToBeTyped = textToBeTyped;
                 $(self.textToBeTypedElement).html(textToBeTyped).lettering();
+	            $(self.typedTextElement).keyup(function() {
+	                self.now.validate($(this).text());
+	            });
+				$(self.typedTextElement).text("");
                 $(self.typedTextElement).attr("contenteditable", true);
+                $(self.typedTextElement).show();
                 $(self.typedTextElement).focus();
             };
 
-            this.now.gameOver = function() {
+            this.now.gameOver = function(name) {
                 $(self.typedTextElement).unbind();
-                $(self.typedTextElement).attr("contenteditable", false).html("GAME OVER!!");
+                $(self.typedTextElement).attr("contenteditable", false).html("GAME OVER!! " + name + " vant");
             };
 
-            $(this.typedTextElement).keyup(function() {
-                self.now.validate($(this).text());
-            });
             $(self.typedTextElement).attr("contenteditable", false);
 
             $(this.startButton).click(function() {
                 self.startGame();
             });
 
+            $(this.nameInput).keyup(function(event) {
+                if (event.keyCode === 13) {
+                    self.registerPlayer($(this).val());
+                }
+            });
+
             return this;
         },
 
+        registerPlayer: function(name) {
+            $(this.nameInput).hide();
+            this.now.name = name;
+            this.now.registerPlayer(name);
+        },
+
         startGame: function() {
-			$(this.startButton).hide();
             this.now.startGame();
         },
 
