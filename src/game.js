@@ -18,9 +18,12 @@ if (typeof require === "function" && typeof module !== "undefined") {
                 everyone: {
                     value: params.everyone
                 },
-				players: {
-					value: []
-				}
+                playerPointers: {
+                    value: []
+                },
+                players: {
+                    value: []
+                }
             })
         },
 
@@ -43,16 +46,18 @@ if (typeof require === "function" && typeof module !== "undefined") {
                 self.startGame();
             },
             this.everyone.now.registerPlayer = function(name) {
-				self.players[this.user.clientId] = name;
-                everyone.now.listPlayers({
+                self.playerPointers[this.user.clientId] = name;
+                self.players.push({
                     clientId: this.user.clientId,
                     name: name
                 });
-				if (self.gameStatus === "InProgress") {
-					this.now.displayTextToBeTyped(self.originalText);
-				} else {
-					everyone.now.showStartButton();
-				}
+                everyone.now.listPlayers(self.players);
+
+                if (self.gameStatus === "InProgress") {
+                    this.now.displayTextToBeTyped(self.originalText);
+                } else {
+                    everyone.now.showStartButton();
+                }
             }
         },
 
@@ -66,10 +71,10 @@ if (typeof require === "function" && typeof module !== "undefined") {
         },
 
         distributeScores: function(now, score) {
-			var self = this;
+            var self = this;
             this.everyone.now.receiveScores({
                 clientId: now.user.clientId,
-                name: self.players[now.user.clientId]
+                name: self.playerPointers[now.user.clientId]
             },
             score);
         },
@@ -77,7 +82,7 @@ if (typeof require === "function" && typeof module !== "undefined") {
         startGame: function() {
             var self = this;
             self.gameStatus = "InProgress";
-			self.everyone.now.hideStartButton();
+            self.everyone.now.hideStartButton();
             setTimeout(function() {
                 self.everyone.now.displayTextToBeTyped(self.originalText);
             },
@@ -86,7 +91,7 @@ if (typeof require === "function" && typeof module !== "undefined") {
 
         endGame: function(now) {
             this.gameStatus = "Completed";
-            this.everyone.now.gameOver(this.players[now.user.clientId]);
+            this.everyone.now.gameOver(this.playerPointers[now.user.clientId]);
         }
     };
 

@@ -54,10 +54,10 @@ function() {
         var self = this;
         spyOn(this.game, "registerPlayer").andCallThrough();
         spyOn(this.now, "registerPlayer").andCallFake(function() {
-            self.now.listPlayers({
+            self.now.listPlayers([{
                 clientId: "123",
                 name: "Snorre"
-            })
+            }])
         });
 
         var e = $.Event("keyup");

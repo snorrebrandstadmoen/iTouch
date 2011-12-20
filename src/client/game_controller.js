@@ -50,19 +50,25 @@ var TDD = TDD || {};
                 }
             };
 
-            this.now.listPlayers = function(user) {
-                var elem = document.getElementById(user.clientId);
-                if (!elem) {
-                    var name = $("<span/>", {
-                        id: user.name + user.clientId
-                    }).html(user.name).appendTo(self.wrapperElement);
-                    elem = $("<progress/>", {
-                        id: user.clientId,
-                        max: 100,
-                        value: 0,
-                        width: "100%",
-                    }).appendTo(self.wrapperElement);
-                }
+            this.now.listPlayers = function(players) {
+				for(var i in players) {
+					var user = players[i];
+					var clientId = user.clientId;
+					var name = user.name;
+					
+	                var elem = document.getElementById(clientId);
+	                if (!elem) {
+	                    var name = $("<span/>", {
+	                        id: name + clientId
+	                    }).html(name).appendTo(self.wrapperElement);
+	                    elem = $("<progress/>", {
+	                        id: clientId,
+	                        max: 100,
+	                        value: 0,
+	                        width: "100%",
+	                    }).appendTo(self.wrapperElement);
+	                }				
+				}
             };
 
             this.now.showStartButton = function() {
