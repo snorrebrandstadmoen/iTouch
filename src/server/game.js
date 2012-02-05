@@ -83,21 +83,18 @@ if (typeof require === "function" && typeof module !== "undefined") {
         },
 
         validate: function(now, typedText) {
-            var score = this.scoring.validate(this.originalText, typedText.replace(/\\r/g, " "));
-            this.distributeScores(now, score);
-
-            if (score.percentage === 100 && score.errors.length === 0) {
-                this.endGame(now);
-            }
-        },
-
-        distributeScores: function(now, score) {
             var self = this;
+			var score = this.scoring.validate(this.originalText, typedText.replace(/\\r/g, " "));
             this.everyone.now.receiveScores({
                 clientId: now.user.clientId,
                 name: self.playerPointers[now.user.clientId]
             },
             score);
+
+
+            if (score.percentage === 100 && score.errors.length === 0) {
+                this.endGame(now);
+            }
         },
 
         startGame: function() {

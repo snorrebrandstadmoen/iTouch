@@ -46,21 +46,28 @@ function() {
     it("should massage original text",
     function() {
         var originalText = 'Oh my God, someone\'s trying to kill me!  Oh wait, it\'s for Bart.\n\n\t\t-- Homer Simpson\n\t\t   Cape Feare';
-		
-		var massagedText = this.game.massage(originalText);
-        
-		expect(massagedText).toEqual('Oh my God, someone\'s trying to kill me! Oh wait, it\'s for Bart.');
+
+        var massagedText = this.game.massage(originalText);
+
+        expect(massagedText).toEqual('Oh my God, someone\'s trying to kill me! Oh wait, it\'s for Bart.');
     });
 
     it("should validate text and distribute scores upon validation request",
     function() {
         var typedText = "Dette er en";
-
+        var status = {
+            "errors": [1],
+            "percentage": 98
+        };
+        spyOn(this.game.scoring, "validate").andReturn(status);
         spyOn(this.everyone.now, 'receiveScores');
 
         this.game.validate(this.everyone.now, typedText);
-
-        expect(this.everyone.now.receiveScores).toHaveBeenCalled();
+        expect(this.everyone.now.receiveScores).toHaveBeenCalledWith({
+            clientId: "123",
+            name: undefined
+        },
+        status);
     });
 
     it("should NOT end game when text is errornous",
@@ -99,7 +106,9 @@ function() {
     function() {
         spyOn(this.everyone.now, 'displayTextToBeTyped');
         spyOn(this.everyone.now, 'hideStartButton');
-		spyOn(this.game, "loadText").andCallFake(function(callback) {callback()});
+        spyOn(this.game, "loadText").andCallFake(function(callback) {
+            callback()
+        });
 
         this.game.startGame();
 
