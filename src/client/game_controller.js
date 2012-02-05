@@ -81,12 +81,21 @@ var TDD = TDD || {};
 	            $(self.startButton).hide();
             };
 
+            
+			this.now.clearText = function() {
+	            $(self.textToBeTypedElement).hide();
+                $(self.typedTextElement).hide();
+            };
+
             this.now.displayTextToBeTyped = function(textToBeTyped) {
                 self.textToBeTyped = textToBeTyped;
                 $(self.textToBeTypedElement).html(textToBeTyped).lettering();
+	            $(self.textToBeTypedElement).show();
+	
 	            $(self.typedTextElement).keyup(function() {
 	                self.now.validate($(this).text());
 	            });
+    
 				$(self.typedTextElement).text("");
                 $(self.typedTextElement).attr("contenteditable", true);
                 $(self.typedTextElement).show();

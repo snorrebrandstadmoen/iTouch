@@ -1,7 +1,9 @@
 if (typeof require === "function" && typeof module !== "undefined") {
     var TDD = TDD || {};
-    TDD.game = require("../src/game");
-    TDD.scoring = require("../src/scoring");
+    TDD.game = require("../../src/server/game");
+    TDD.scoring = require("../../src/server/scoring");
+    var sinon = require("sinon");
+    var $ = jQuery = require('jquery');
 }
 
 describe("Game",
@@ -17,6 +19,8 @@ function() {
                 startGame: function() {},
                 displayTextToBeTyped: function() {},
                 hideStartButton: function() {},
+                showStartButton: function() {},
+                clearText: function() {},
                 gameOver: function() {},
                 user: {
                     clientId: "123"
@@ -42,13 +46,10 @@ function() {
     it("should massage original text",
     function() {
         var originalText = 'Oh my God, someone\'s trying to kill me!  Oh wait, it\'s for Bart.\n\n\t\t-- Homer Simpson\n\t\t   Cape Feare';
-        this.game = TDD.game.create({
-            originalText: originalText,
-            scoring: TDD.scoring.create(),
-            everyone: this.everyone
-        });
-
-        expect(this.game.originalText).toEqual('Oh my God, someone\'s trying to kill me! Oh wait, it\'s for Bart.');
+		
+		var massagedText = this.game.massage(originalText);
+        
+		expect(massagedText).toEqual('Oh my God, someone\'s trying to kill me! Oh wait, it\'s for Bart.');
     });
 
     it("should validate text and distribute scores upon validation request",
@@ -98,6 +99,7 @@ function() {
     function() {
         spyOn(this.everyone.now, 'displayTextToBeTyped');
         spyOn(this.everyone.now, 'hideStartButton');
+		spyOn(this.game, "loadText").andCallFake(function(callback) {callback()});
 
         this.game.startGame();
 

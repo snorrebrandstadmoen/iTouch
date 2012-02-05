@@ -2,6 +2,7 @@ var TDD = TDD || {};
 
 if (typeof require === "function" && typeof module !== "undefined") {
     var $ = jQuery = require('jquery');
+    var request = require('request');
 }
 
  (function() {
@@ -10,7 +11,8 @@ if (typeof require === "function" && typeof module !== "undefined") {
         create: function(params) {
             return Object.create(this, {
                 originalText: {
-                    value: this.massage(params.originalText)
+                    value: params.originalText,
+					writable: true
                 },
                 scoring: {
                     value: params.scoring
@@ -23,8 +25,26 @@ if (typeof require === "function" && typeof module !== "undefined") {
                 },
                 players: {
                     value: []
-                }
+                },
             })
+        },
+
+        loadText: function(callback) {
+			var self = this;
+			
+            request({
+                url: 'http://iheartquotes.com/api/v1/random?format=json&max_lines=4&show_source=false&source=simpsons_homer',
+                timeout: 2000
+            },
+            function(error, response, body) {
+                var quote;
+                if (!error && response.statusCode === 200) {
+                    quote = JSON.parse(body).quote;
+	                self.originalText = self.massage(quote);
+                } 
+                console.log(self.originalText);
+                callback();
+            });
         },
 
         massage: function(text) {
@@ -58,7 +78,8 @@ if (typeof require === "function" && typeof module !== "undefined") {
                 } else {
                     everyone.now.showStartButton();
                 }
-            }
+            };
+
         },
 
         validate: function(now, typedText) {
@@ -83,8 +104,11 @@ if (typeof require === "function" && typeof module !== "undefined") {
             var self = this;
             self.gameStatus = "InProgress";
             self.everyone.now.hideStartButton();
+            self.everyone.now.clearText();
             setTimeout(function() {
-                self.everyone.now.displayTextToBeTyped(self.originalText);
+                self.loadText(function() {
+                    self.everyone.now.displayTextToBeTyped(self.originalText)
+                });
             },
             5000);
         },
@@ -92,11 +116,11 @@ if (typeof require === "function" && typeof module !== "undefined") {
         endGame: function(now) {
             this.gameStatus = "Completed";
             this.everyone.now.gameOver(this.playerPointers[now.user.clientId]);
+            this.everyone.now.showStartButton();
         }
     };
 
     TDD.game.gameStatus = "NotStarted";
-
 } ());
 
 if (typeof module === 'object') {

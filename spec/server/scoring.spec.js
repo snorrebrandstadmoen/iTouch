@@ -1,6 +1,6 @@
 if (typeof require === "function" && typeof module !== "undefined") {
     var TDD = {};
-    TDD.scoring = require("../src/scoring");
+    TDD.scoring = require("../../src/server/scoring");
 }
 
 describe("Validation of text and scoring",
@@ -14,62 +14,52 @@ function() {
         scoring = TDD.scoring.create();
     });
 
-    describe("Text validation",
+    it("should validate typed text",
     function() {
+        var typedText = "DeTte er en test";
 
-        it("should validate typed text",
-        function() {
-            var typedText = "DeTte er en test";
+        expect(scoring.validate).toBeDefined();
 
-            expect(scoring.validate).toBeDefined();
+        var results = scoring.validate(originalText, typedText);
 
-            var results = scoring.validate(originalText, typedText);
-
-            expect(results.errors.length).toEqual(1);
-            expect(results.errors[0]).toEqual(2);
-        });
-
-        it("should validate text with 2 errors",
-        function() {
-            var typedText = "DeTte Er en test";
-
-            expect(scoring.validate).toBeDefined();
-
-            var results = scoring.validate(originalText, typedText);
-
-            expect(results.errors.length).toEqual(2);
-            expect(results.errors[0]).toEqual(2);
-            expect(results.errors[1]).toEqual(6);
-        });
-
+        expect(results.errors.length).toEqual(1);
+        expect(results.errors[0]).toEqual(2);
     });
 
-    describe("Score calculation",
+    it("should validate text with 2 errors",
     function() {
+        var typedText = "DeTte Er en test";
 
-        it("should calculate score when typed text is 100% complete",
-        function() {
-            var typedText = "Dette er en test";
-            var score = scoring.validate(originalText, typedText);
+        expect(scoring.validate).toBeDefined();
 
-            expect(score.percentage).toEqual(100);
-        });
+        var results = scoring.validate(originalText, typedText);
 
-        it("should calculate score when typed text is 0% complete",
-        function() {
-            var typedText = "";
-            var score = scoring.validate(originalText, typedText);
+        expect(results.errors.length).toEqual(2);
+        expect(results.errors[0]).toEqual(2);
+        expect(results.errors[1]).toEqual(6);
+    });
 
-            expect(score.percentage).toEqual(0);
-        });
+    it("should calculate score when typed text is 100% complete",
+    function() {
+        var typedText = "Dette er en test";
+        var score = scoring.validate(originalText, typedText);
 
-        it("should calculate score when typed text is incomplete",
-        function() {
-            var typedText = "DeTte er";
-            var score = scoring.validate(originalText, typedText);
+        expect(score.percentage).toEqual(100);
+    });
 
-            expect(score.percentage).toEqual(5 / 10 * 100);
-        });
+    it("should calculate score when typed text is 0% complete",
+    function() {
+        var typedText = "";
+        var score = scoring.validate(originalText, typedText);
 
+        expect(score.percentage).toEqual(0);
+    });
+
+    it("should calculate score when typed text is incomplete",
+    function() {
+        var typedText = "DeTte er";
+        var score = scoring.validate(originalText, typedText);
+
+        expect(score.percentage).toEqual(5 / 10 * 100);
     });
 });
