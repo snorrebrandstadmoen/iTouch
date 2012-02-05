@@ -81,7 +81,7 @@ function() {
 
     it("should end game when text is complete with no errors",
     function() {
-        var typedText = this.originalText + "asdf";
+        var typedText = this.originalText;
 
         spyOn(this.game.scoring, "validate").andReturn({
             "errors": [],
