@@ -103,19 +103,9 @@ function() {
 
         var originalText = "En tekst";
 
-        spyOn(this.now, "validate").andCallFake(function() {
-            self.now.receiveScores({
-                clientId: clientId,
-                name: "Snorre"
-            },
-            {
-                "errors": [10],
-                "percentage": 95
-            })
-        });
+        spyOn(this.now, "validate").andCallThrough();
 
         this.game.now.displayTextToBeTyped(originalText);
-
         this.typedTextElement.trigger("keyup");
 
         expect(this.now.validate).toHaveBeenCalled();
