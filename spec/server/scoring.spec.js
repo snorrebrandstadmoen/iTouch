@@ -23,7 +23,7 @@ function() {
         var results = scoring.validate(originalText, typedText);
 
         expect(results.errors.length).toEqual(1);
-        expect(results.errors[0]).toEqual(2);
+        expect(results.errors).toEqual([2]);
     });
 
     it("should validate text with 2 errors",
@@ -35,8 +35,7 @@ function() {
         var results = scoring.validate(originalText, typedText);
 
         expect(results.errors.length).toEqual(2);
-        expect(results.errors[0]).toEqual(2);
-        expect(results.errors[1]).toEqual(6);
+        expect(results.errors).toEqual([2, 6]);
     });
 
     it("should calculate score when typed text is 100% complete",
