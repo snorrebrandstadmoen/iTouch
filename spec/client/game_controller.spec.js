@@ -70,6 +70,21 @@ function() {
         expect($(this.nameInput).is(':hidden')).toBeTruthy();
     });
 
+    it("should remove users as they disconnect",
+    function() {
+        var user = {
+            clientId: "123",
+            name: "Snorre"
+        };
+        this.game.createProgressbar(user);
+        expect(this.wrapperElement.find("#_" + user.clientId)).toExist();
+        expect(this.wrapperElement.find("#" + user.clientId)).toExist();
+
+        this.game.removePlayer(user);
+        expect(this.wrapperElement.find("#_" + user.clientId)).not.toExist();
+        expect(this.wrapperElement.find("#" + user.clientId)).not.toExist();
+    });
+
     it("should show text to be typed after game is started",
     function() {
         var originalText = "En tekst";
@@ -85,7 +100,26 @@ function() {
         expect($(this.typedTextElement).attr("contenteditable")).toEqual("true");
     });
 
-    it("should do start game when start button is clicked",
+	it("should reset progressbars when new game is started", function () {
+		var self = this;
+		var user = {
+            clientId: "123",
+            name: "Snorre"
+        };
+
+        this.game.createProgressbar(user);
+        (this.wrapperElement).find("#" + user.clientId).attr("value", 40);
+
+		spyOn(this.now, "startGame").andCallFake(function() {
+            self.now.clearProgressbars();
+        });
+
+		this.game.startGame();
+        expect(this.wrapperElement.find("#" + user.clientId).attr("value")).toEqual(0);        
+        
+	});
+
+    it("should start game when start button is clicked",
     function() {
         spyOn(this.game, "startGame");
 

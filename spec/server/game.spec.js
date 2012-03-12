@@ -18,10 +18,12 @@ function() {
                 receiveScores: function(clientId, score) {},
                 startGame: function() {},
                 displayTextToBeTyped: function() {},
+				clearProgressbars: function() {},
                 hideStartButton: function() {},
                 showStartButton: function() {},
                 clearText: function() {},
                 gameOver: function() {},
+				removePlayer: function() {},
                 user: {
                     clientId: "123"
                 }
@@ -31,7 +33,9 @@ function() {
         this.game = TDD.game.create({
             originalText: this.originalText,
             scoring: TDD.scoring.create(),
-            everyone: this.everyone
+            everyone: this.everyone,
+			playerPointers: [],
+			players: []
         });
 
         expect(this.game.gameStatus).toEqual("NotStarted");
@@ -94,7 +98,7 @@ function() {
             "errors": [],
             "percentage": 100
         });
-        spyOn(this.everyone.now, 'gameOver');
+        spyOn(this.everyone.now, "gameOver");
 
         this.game.validate(this.everyone.now, typedText);
 
@@ -102,10 +106,31 @@ function() {
         expect(this.game.gameStatus).toEqual("Completed");
     });
 
+	it("should remove player when disconnecting client", function () {
+		var name = "Snorre";
+		var clientId = "123";
+		var user = {
+            clientId: clientId,
+            name: name
+        };
+		spyOn(this.everyone.now, 'removePlayer');
+        
+		this.game.playerPointers[clientId] = name;
+        this.game.players.push(user);
+
+		expect(this.game.players[0].name).toEqual(name);
+		
+		this.game.disconnectUser(user);
+
+		expect(this.game.players.length).toEqual(0);		
+		expect(this.everyone.now.removePlayer).toHaveBeenCalledWith(user);
+	});
+
     it("should start game on request",
     function() {
         spyOn(this.everyone.now, 'displayTextToBeTyped');
         spyOn(this.everyone.now, 'hideStartButton');
+        spyOn(this.everyone.now, 'clearProgressbars');
         spyOn(this.game, "loadText").andCallFake(function(callback) {
             callback()
         });
@@ -118,6 +143,7 @@ function() {
         this.clock.tick(1000);
         expect(this.everyone.now.displayTextToBeTyped).toHaveBeenCalled();
         expect(this.everyone.now.hideStartButton).toHaveBeenCalled();
+        expect(this.everyone.now.clearProgressbars).toHaveBeenCalled();
         expect(this.game.gameStatus).toEqual("InProgress");
 
     });

@@ -12,7 +12,7 @@ if (typeof require === "function" && typeof module !== "undefined") {
             return Object.create(this, {
                 originalText: {
                     value: params.originalText,
-					writable: true
+                    writable: true
                 },
                 scoring: {
                     value: params.scoring
@@ -21,17 +21,19 @@ if (typeof require === "function" && typeof module !== "undefined") {
                     value: params.everyone
                 },
                 playerPointers: {
-                    value: []
+                    value: params.playerPointers,
+                    writable: true
                 },
                 players: {
-                    value: []
+                    value: params.players,
+                    writable: true
                 },
             })
         },
 
         loadText: function(callback) {
-			var self = this;
-			
+            var self = this;
+
             request({
                 url: 'http://iheartquotes.com/api/v1/random?format=json&max_lines=4&show_source=false&source=simpsons_homer',
                 timeout: 2000
@@ -40,8 +42,8 @@ if (typeof require === "function" && typeof module !== "undefined") {
                 var quote;
                 if (!error && response.statusCode === 200) {
                     quote = JSON.parse(body).quote;
-	                self.originalText = self.massage(quote);
-                } 
+                    self.originalText = self.massage(quote);
+                }
                 console.log(self.originalText);
                 callback();
             });
@@ -84,7 +86,7 @@ if (typeof require === "function" && typeof module !== "undefined") {
 
         validate: function(now, typedText) {
             var self = this;
-			var score = this.scoring.validate(this.originalText, typedText.replace(/\\r/g, " "));
+            var score = this.scoring.validate(this.originalText, typedText.replace(/\\r/g, " "));
             this.everyone.now.receiveScores({
                 clientId: now.user.clientId,
                 name: self.playerPointers[now.user.clientId]
@@ -102,6 +104,7 @@ if (typeof require === "function" && typeof module !== "undefined") {
             self.gameStatus = "InProgress";
             self.everyone.now.hideStartButton();
             self.everyone.now.clearText();
+			self.everyone.now.clearProgressbars();
             setTimeout(function() {
                 self.loadText(function() {
                     self.everyone.now.displayTextToBeTyped(self.originalText)
@@ -114,6 +117,21 @@ if (typeof require === "function" && typeof module !== "undefined") {
             this.gameStatus = "Completed";
             this.everyone.now.gameOver(this.playerPointers[now.user.clientId]);
             this.everyone.now.showStartButton();
+        },
+
+        disconnectUser: function(disconnectedUser) {
+            for (var i in this.players) {
+                var user = this.players[i];
+                var clientId = user.clientId;
+                var name = user.name;
+
+                if (clientId === disconnectedUser.clientId) {
+                    this.everyone.now.removePlayer(user);
+                    this.players.pop(user);
+                    delete this.playerPointers[i];
+                    break;
+                }
+            }
         }
     };
 

@@ -8,16 +8,24 @@ app.listen(8080);
 var nowjs = require("now");
 everyone = nowjs.initialize(app);
 
+var playerPointers = [];
+var players = [];
+
 var TDD = TDD || {};
 TDD.game = require("./src/server/game");
 TDD.scoring = require("./src/server/scoring");
 
-TDD.game.create({
+var game = TDD.game.create({
     originalText: "Dette er en test",
     scoring: TDD.scoring.create(),
     everyone: everyone,
-}).init();
+	playerPointers: playerPointers,
+	players: players
+});
 
+nowjs.on('disconnect',
+function() {
+	game.disconnectUser(this.user);
+});
 
-
-
+game.init();
