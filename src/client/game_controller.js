@@ -84,7 +84,7 @@ var TDD = TDD || {};
 
             this.now.gameOver = function(name) {
                 $(self.typedTextElement).unbind();
-                $(self.typedTextElement).attr("contenteditable", false).html("GAME OVER!! " + name + " vant");
+                $(self.typedTextElement).attr("contenteditable", false).html("Game over!! " + name + " vant");
             };
 
             $(self.typedTextElement).attr("contenteditable", false);
