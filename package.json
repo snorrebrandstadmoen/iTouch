@@ -8,9 +8,13 @@
   "dependencies": {
     "express": "~2.0.0",
     "now": "~0.8.1",
-    "jQuery": "~1.7.4",
+    "jQuery": "1.7.4",
     "jsdom": "~0.10.5",
     "xmlhttprequest": "~1.6.0",
 	"request": "~2.36.0"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.2.x"
   }
 }
