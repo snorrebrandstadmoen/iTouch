@@ -1,5 +1,10 @@
 INSTALLASJON
 ============
+
+1. npm install
+2. node app.js
+3. localhost:8080
+
 Js Test Driver, Jasmine-Adapter, Jasmine, Sinon
 -----------------------------------------------
 Alle TDD-relaterte JavaScript-bibliotek som er nødvendige ligger i lib-mappen.
