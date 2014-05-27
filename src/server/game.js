@@ -1,7 +1,7 @@
 var TDD = TDD || {};
 
 if (typeof require === "function" && typeof module !== "undefined") {
-    var $ = jQuery = require('jquery');
+    var $ = jQuery = require('jQuery');
     var request = require('request');
 }
 
