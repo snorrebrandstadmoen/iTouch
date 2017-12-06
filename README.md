@@ -2,6 +2,8 @@ BAKGRUNN
 ============
 https://open.bekk.no/erfaringer-fra-testdrevet-javascript
 
+https://www.youtube.com/embed/kXEiXN3ezFI?rel=0&hd=1&iv_load_policy=3&modestbranding=0&showinfo=0&vq=hd720
+
 INSTALLASJON
 ============
 
