@@ -1,3 +1,7 @@
+BAKGRUNN
+============
+https://open.bekk.no/erfaringer-fra-testdrevet-javascript
+
 INSTALLASJON
 ============
 
