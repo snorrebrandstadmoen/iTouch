@@ -1,6 +1,6 @@
 BAKGRUNN
 ============
-https://open.bekk.no/erfaringer-fra-testdrevet-javascript
+https://blogg.bekk.no/erfaringer-fra-testdrevet-javascript-995e87affdb0
 
 https://www.youtube.com/embed/kXEiXN3ezFI?rel=0&hd=1&iv_load_policy=3&modestbranding=0&showinfo=0&vq=hd720
 
