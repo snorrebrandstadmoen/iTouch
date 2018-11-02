@@ -19,7 +19,7 @@ Alle TDD-relaterte JavaScript-bibliotek som er nødvendige ligger i lib-mappen.
 
 * http://code.google.com/p/js-test-driver/
 * https://github.com/ibolmo/jasmine-jstd-adapter
-* http://pivotal.github.com/jasmine
+* https://jasmine.github.io/
 * http://sinonjs.org/
 
 JstdUtil
@@ -73,7 +73,7 @@ Jasmine
 -------------
 Bruk:
   
-* https://github.com/pivotal/jasmine/wiki
+* https://github.com/jasmine/jasmine/wiki
 	
 Sinon
 -------------
